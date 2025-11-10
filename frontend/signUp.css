@@ -8,15 +8,17 @@ body {
     justify-content: center;
     align-items: flex-start; /* Start from the top */
     min-height: 100vh;
-    padding-top: 50px; /* Space from the top of the screen */
+    
 }
 
 .signup-container {
     width: 100%;
-    max-width: 375px; /* Typical mobile screen width */
+    max-width: 400px; /* Typical mobile screen width */
+    height: 100vh;
+   
     background-color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
+    ;
+
     overflow: hidden; /* Contains the children elements */
 }
 
@@ -127,6 +129,10 @@ body {
     cursor: pointer;
     margin-top: 20px;
     transition: background-color 0.3s;
+    text-decoration: none; 
+    text-align: center;    
+    display: inline-block; 
+    box-sizing: border-box;
 }
 
 .create-account-btn:hover {

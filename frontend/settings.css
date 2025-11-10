@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -6,17 +7,22 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(135deg, #B8E6F0 0%, #C8F0D4 100%);
+    
+    background-color: var(--color-bg);
     min-height: 100vh;
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+   
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .container {
     width: 100%;
+    height: 100vh;
     max-width: 420px;
+
 }
 
 .header {
@@ -35,7 +41,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #333;
+    /* CHANGED: Use variable */
+    color: var(--color-text-muted);
     transition: transform 0.2s;
     flex-shrink: 0;
 }
@@ -54,14 +61,19 @@ body {
     transform: translateX(-50%);
     font-size: 20px;
     font-weight: 600;
-    color: #000;
+    margin-top: -40px;
+    /* CHANGED: Use variable */
+    color: var(--color-text-header);
 }
 
 .settings-container {
-    background: white;
-    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    /* CHANGED: Use variable */
+    background: var(--color-bg);
+    gap: 6px;
     padding: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
 }
 
 .settings-item {
@@ -70,12 +82,17 @@ body {
     padding: 16px 12px;
     border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
-    gap: 12px;
+    /* CHANGED: Use variable */
+    background-color: var(--color-card-bg);
+    /* ADDED: Border for dark mode compatibility */
+    border: 1px solid var(--color-card-border);
+    transition: background-color 0.2s, transform 0.2s, border-color 0.2s ease;
+    gap: 20px;
 }
 
 .settings-item:hover {
-    background-color: #f5f5f5;
+    /* CHANGED: Use variable */
+    background-color: var(--hover-card-bg);
     transform: translateX(4px);
 }
 
@@ -101,32 +118,16 @@ body {
     flex-shrink: 0;
 }
 
-.account-icon {
-    background: #a8e6b8;
-}
-
-.notifications-icon {
-    background: #a8e6b8;
-}
-
-.linked-icon {
-    background: #a8e6b8;
-}
-
-.appearance-icon {
-    background: #a8e6b8;
-}
-
-.privacy-icon {
-    background: #a8e6b8;
-}
-
-.help-icon {
-    background: #a8e6b8;
-}
-
+/* CHANGED: Use a variable for all icon backgrounds */
+.account-icon,
+.notifications-icon,
+.linked-icon,
+.appearance-icon,
+.privacy-icon,
+.help-icon,
 .about-icon {
-    background: #a8e6b8;
+    /* This variable is light-gray in light mode and dark-gray in dark mode */
+    background: var(--color-card-border);
 }
 
 .item-content {
@@ -139,16 +140,19 @@ body {
 .item-title {
     font-size: 16px;
     font-weight: 500;
-    color: #000;
+    /* CHANGED: Use variable */
+    color: var(--color-text-header);
 }
 
 .item-subtitle {
     font-size: 13px;
-    color: #999;
+    /* CHANGED: Use variable */
+    color: var(--color-text-muted);
 }
 
 .chevron {
-    color: #ccc;
+    /* CHANGED: Use variable */
+    color: var(--color-text-muted);
     flex-shrink: 0;
 }
 
@@ -174,14 +178,15 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    /* CHANGED: Use variable for 'off' state */
+    background-color: var(--color-card-border);
     transition: 0.3s;
     border-radius: 28px;
 }
 
 .toggle-slider:before {
     position: absolute;
-    content: "";
+    M content: "";
     height: 22px;
     width: 22px;
     left: 3px;
@@ -191,21 +196,22 @@ body {
     border-radius: 50%;
 }
 
-.toggle-input:checked + .toggle-slider {
-    background-color: #4CAF50;
+.toggle-input:checked+.toggle-slider {
+    /* CHANGED: Use variable for 'on' state */
+    background-color: var(--color-primary);
 }
 
-.toggle-input:checked + .toggle-slider:before {
+.toggle-input:checked+.toggle-slider:before {
     transform: translateX(22px);
 }
 
-/* Responsive Design */
+/* Responsive Design (No changes needed here) */
 @media (max-width: 480px) {
     body {
         padding: 10px;
     }
 
-    .page-title {
+    m .page-title {
         font-size: 18px;
     }
 
@@ -275,12 +281,12 @@ body {
         width: 18px;
     }
 
-    .toggle-input:checked + .toggle-slider:before {
+    .toggle-input:checked+.toggle-slider:before {
         transform: translateX(20px);
     }
 }
 
-/* Tablet and larger screens */
+/* Tablet and larger screens (No changes needed here) */
 @media (min-width: 768px) {
     .container {
         max-width: 480px;

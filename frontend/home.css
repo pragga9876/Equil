@@ -488,7 +488,16 @@ body {
   border: none;
   cursor: pointer;
 }
-
+.sidebar-nav-link .material-icons-outlined {
+  font-size: 24px;  /* Sets the icon's visual size */
+  width: 24px;
+  flex-shrink: 0;  /* This prevents the icon from shrinking or growing weirdly */
+}
+.sidebar-nav-link > span:not(.material-icons-outlined) {
+  white-space: nowrap;     /* Keeps text on one line */
+  overflow: hidden;        /* Hides any text that still overflows */
+  text-overflow: ellipsis; /* Adds "..." if the text is too long */
+}
 /* ---Floating Nature Elements --- */
 
 .floating-elements-container {

@@ -24,14 +24,15 @@ body {
     width: 100%;
     max-width: 400px;
     height: 100vh;
-    max-height: 800px;
+    max-height: 1000px;
     background-color: var(--color-white);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
-    border: 4px solid #F0F4FF; /* Consistent subtle border */
+   
 }
 
 /* Header/Title Bar */

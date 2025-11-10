@@ -1,4 +1,4 @@
-// Function to handle back button click
+
 function goBack() {
     if (window.history.length > 1) {
         window.history.back();
@@ -59,14 +59,14 @@ function logout() {
     if (confirmed) {
         localStorage.removeItem('userProfile');
         console.log('User logged out');
-        // You can redirect to login page here
+        s       // You can redirect to login page here
         // window.location.href = '/login';
         alert('Logged out successfully!');
     }
 }
 
 // Load profile data on page load
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const savedProfile = localStorage.getItem('userProfile');
 
     if (savedProfile) {
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Keyboard navigation
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape') {
         goBack();
     }

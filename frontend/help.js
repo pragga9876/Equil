@@ -1,4 +1,4 @@
-// Function to handle back button click
+// Function to handle back-button click
 function goBack() {
     if (window.history.length > 1) {
         window.history.back();
@@ -57,9 +57,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (searchTerm === '' || isMatch) {
                     card.style.display = 'block';
                     card.style.opacity = '1';
+                    card.style.pointerEvents = 'auto'; // Re-enable pointer events
                 } else {
                     card.style.opacity = '0.3';
-                    card.style.pointerEvents = 'none';
+                    card.style.pointerEvents = 'none'; // Disable pointer events
                 }
             });
         });

@@ -1,31 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
   // --- Element References ---
-  const htmlElement = document.documentElement;
-
   // Sidebar elements
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
   const sidebar = document.getElementById('sidebar');
   const sidebarOverlay = document.getElementById('sidebar-overlay');
 
-  // Theme toggle elements
-  const themeToggleBtn = document.getElementById('theme-toggle-btn');
-  const themeToggleIcon = document.getElementById('theme-toggle-icon');
-  const themeToggleText = document.getElementById('theme-toggle-text');
-
   // Other interactive elements
   const startButton = document.querySelector('.button-primary');
   const faqCard = document.querySelector('.faq-card');
+  const howItWorksToggle = document.getElementById('how-it-works-toggle');
+  const howItWorksSection = document.getElementById('how-it-works-section');
 
-  // --- NEW: Sidebar Toggle Logic ---
+  // --- Sidebar Toggle Logic ---
   function openSidebar() {
-    sidebar.classList.add('open');
-    sidebarOverlay.classList.add('open');
+    if (sidebar) sidebar.classList.add('open');
+    if (sidebarOverlay) sidebarOverlay.classList.add('open');
   }
 
   function closeSidebar() {
-    sidebar.classList.remove('open');
-    sidebarOverlay.classList.remove('open');
+    if (sidebar) sidebar.classList.remove('open');
+    if (sidebarOverlay) sidebarOverlay.classList.remove('open');
   }
 
   if (hamburgerBtn) {
@@ -38,84 +33,71 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebarOverlay.addEventListener('click', closeSidebar);
   }
 
-  // --- UPDATED: Dark Mode Toggle Logic ---
-  function setTheme(theme) {
+  // --- NEW: Dark Mode Toggle Logic ---
+  // Get references to the sidebar button elements
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  const themeToggleIcon = document.getElementById('theme-toggle-icon');
+  const themeToggleText = document.getElementById('theme-toggle-text');
+
+  // Function to update the button's icon and text
+  function updateSidebarButton(theme) {
+    if (!themeToggleIcon || !themeToggleText) return; // Safety check
+
     if (theme === 'dark') {
-      htmlElement.classList.remove('light');
-      htmlElement.classList.add('dark');
       themeToggleIcon.textContent = 'light_mode';
       themeToggleText.textContent = 'Light Mode';
-      localStorage.setItem('theme', 'dark');
     } else {
-      htmlElement.classList.remove('dark');
-      htmlElement.classList.add('light');
       themeToggleIcon.textContent = 'dark_mode';
       themeToggleText.textContent = 'Dark Mode';
-      localStorage.setItem('theme', 'light');
     }
   }
 
+  // Add the click listener
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
-      if (htmlElement.classList.contains('light')) {
-        setTheme('dark');
+      // Check the CURRENT theme from the <html> tag
+      const isDark = document.documentElement.classList.contains('dark');
+      const newTheme = isDark ? 'light' : 'dark';
+      
+      // Call the global function from theme.js (must be loaded first!)
+      if (typeof setTheme === 'function') {
+        setTheme(newTheme); 
       } else {
-        setTheme('light');
+        console.error('Error: theme.js is not loaded or setTheme is not defined.');
+        return;
       }
+      
+      // Update the button's appearance
+      updateSidebarButton(newTheme);
     });
   }
 
-  // --- Check for saved theme preference on load ---
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) {
-    setTheme(savedTheme);
-  } else {
-    // Optional: Check system preference
-    /*
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setTheme('dark');
-    } else {
-      setTheme('light');
-    }
-    */
-    // Default to light if no preference
-    setTheme('light');
-  }
-
+  // On page load, make sure the button's text is correct
+  const currentTheme = localStorage.getItem('theme') || 'light';
+  updateSidebarButton(currentTheme);
 
   // --- Other Interactions (from original script) ---
   if (startButton) {
     startButton.addEventListener('click', () => {
       console.log('Start Your Journey button clicked!');
-      // Add navigation or other logic here
     });
   }
 
   if (faqCard) {
     faqCard.addEventListener('click', () => {
       console.log('FAQ card clicked!');
-      // Navigate to FAQ page, e.g., window.location.href = '/faq';
     });
   }
-  // 
-  // =====================================================
-  // NEW: "How it Works" Toggle Logic
-  // =====================================================
-  //
-  const howItWorksToggle = document.getElementById('how-it-works-toggle');
-  const howItWorksSection = document.getElementById('how-it-works-section');
-
+  
+  // --- "How it Works" Toggle Logic ---
   if (howItWorksToggle && howItWorksSection) {
     howItWorksToggle.addEventListener('click', () => {
-      // Check the current state from the aria-expanded attribute
       const isExpanded = howItWorksToggle.getAttribute('aria-expanded') === 'true';
 
       if (isExpanded) {
-        // It's open, so close it
         howItWorksToggle.setAttribute('aria-expanded', 'false');
         howItWorksSection.classList.remove('open');
       } else {
-        // It's closed, so open it
         howItWorksToggle.setAttribute('aria-expanded', 'true');
         howItWorksSection.classList.add('open');
       }

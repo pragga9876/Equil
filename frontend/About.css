@@ -6,12 +6,15 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(135deg, #B8E6F0 0%, #C8F0D4 100%);
+    /* CHANGED: Replaced gradient with theme variable */
+    background-color: var(--color-bg);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    /* ADDED: Smooth theme transition */
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .container {
@@ -35,7 +38,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #333;
+    /* CHANGED: Use variable */
+    color: var(--color-text-muted);
     transition: transform 0.2s;
 }
 
@@ -53,40 +57,49 @@ body {
     transform: translateX(-50%);
     font-size: 20px;
     font-weight: 600;
-    color: #000;
+    /* CHANGED: Use variable */
+    color: var(--color-text-header);
 }
 
 .content-card {
-    background: white;
+    /* CHANGED: Use variable */
+    background: var(--color-card-bg);
+    /* ADDED: Border for dark mode */
+    border: 1px solid var(--color-card-border);
     border-radius: 20px;
     padding: 40px 30px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     text-align: center;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .mission-title {
-    color: #4CAF50;
+    /* CHANGED: Use variable */
+    color: var(--color-primary);
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 16px;
 }
 
 .mission-text {
-    color: #333;
+    /* CHANGED: Use variable */
+    color: var(--color-text-body);
     font-size: 15px;
     line-height: 1.6;
     margin-bottom: 32px;
 }
 
 .calculator-title {
-    color: #000;
+    /* CHANGED: Use variable */
+    color: var(--color-text-header);
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 16px;
 }
 
 .calculator-text {
-    color: #666;
+    /* CHANGED: Use variable */
+    color: var(--color-text-body);
     font-size: 14px;
     line-height: 1.6;
     margin-bottom: 40px;
@@ -97,24 +110,28 @@ body {
 }
 
 .developed-by {
-    color: #000;
+    /* CHANGED: Use variable */
+    color: var(--color-text-header);
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 16px;
 }
 
 .developer-name {
-    color: #666;
+    /* CHANGED: Use variable */
+    color: var(--color-text-body);
     font-size: 15px;
     margin: 8px 0;
 }
 
 .version {
-    color: #999;
+    /* CHANGED: Use variable */
+    color: var(--color-text-muted);
     font-size: 13px;
     margin-top: 20px;
 }
 
 /* Responsive Design */
 @media (max-width: 480px) {
-    body {
+    
+}
