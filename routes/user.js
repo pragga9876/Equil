@@ -161,5 +161,12 @@ router.get('/About', (req, res) => {
     currentUser: req.user
   });
 }); 
+router.get('/help', (req, res) => {
+  res.render('help', {
+    title: 'Help and Support',
+    pageCSS: ['help'],
+    currentUser: req.user
+  });
+});
 
 module.exports = router;
