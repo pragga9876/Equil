@@ -4,6 +4,7 @@ const Activity = require("../models/activity");
 const User = require("../models/user");
 const { isLoggedIn } = require("../middleware/auth");
 const { evaluateBadges } = require("../utils/badges");
+const { updateUserStreak } = require("../utils/streak");
 
 // CO₂ emission constants (in kg)
 const FACTORS = {
@@ -38,16 +39,22 @@ router.post("/activities", isLoggedIn, async (req, res) => {
       const { mode, distance } = req.body;
       co2 = await calculateTravelCO2(distance, mode);
       await Activity.create({ user: req.user._id, type, mode, distance, co2 });
+      // after Activity.create(...) call (for any type)
+      // e.g., after await Activity.create(...)
+      await updateUserStreak(req.user._id, new Date()); // use activity.date if you set custom date
+
     } 
     else if (type === "energy") {
       const { kwh } = req.body;
       co2 = await calculateEnergyCO2(kwh);
       await Activity.create({ user: req.user._id, type, kwh, co2 });
+      await updateUserStreak(req.user._id, new Date()); // use activity.date if you set custom date
     } 
     else if (type === "diet") {
       const { dietType } = req.body;
       co2 = await calculateDietCO2(dietType);
       await Activity.create({ user: req.user._id, type, dietType, co2 });
+      await updateUserStreak(req.user._id, new Date()); // use activity.date if you set custom date
     }
 
     // 🏅 Badge Evaluation

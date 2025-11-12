@@ -1,0 +1,21 @@
+<% pageCSS = ["leaderboard"]; %>
+
+<section class="leaderboard-section">
+  <h2>🏆 Leaderboard — Least CO₂ (Last 7 days)</h2>
+  <% if (leaderboard && leaderboard.length) { %>
+    <ol class="leaderboard-list">
+      <% leaderboard.forEach((item, idx) => { %>
+        <li class="leaderboard-item">
+          <span class="rank">#<%= idx+1 %></span>
+          <span class="name"><%= item.username %></span>
+          <span class="co2"><%= item.weeklyCO2.toFixed(2) %> kg</span>
+          <span class="badges"><%= item.badgesEarned %> badges</span>
+        </li>
+      <% }) %>
+    </ol>
+  <% } else { %>
+    <p>No data yet — encourage users to log activities!</p>
+  <% } %>
+</section>
+
+

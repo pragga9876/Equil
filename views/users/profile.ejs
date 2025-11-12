@@ -67,6 +67,16 @@
     <p>No badges yet — log activities to earn badges!</p>
   <% } %>
 </div>
+<div class="profile-streak">
+  <h3>🔥 Activity Streak</h3>
+  <% if (user && user.streak) { %>
+    <p>You have a <strong><%= user.streak.current %></strong>-day streak!</p>
+    <small>Last activity: <%= user.streak.lastActivityAt ? new Date(user.streak.lastActivityAt).toLocaleDateString() : "Never" %></small>
+  <% } else { %>
+    <p>You haven't started a streak yet. Log activities daily to build your streak!</p>
+  <% } %>
+</div>
+
 
 
     <!-- Form Section -->

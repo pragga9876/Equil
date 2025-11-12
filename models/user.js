@@ -42,8 +42,15 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    badges: { type: [badgeSchema], default: [] }
+    badges: { type: [badgeSchema], default: [] },
+     streak: {
+    current: { type: Number, default: 0 },      // current active streak count (days)
+    lastActivityAt: { type: Date, default: null } // last day when user logged an activity
   },
+  weeklyCO2Cache: { type: Number, default: 0 },
+  createdAt: { type: Date, default: Date.now }
+  },
+  
   { timestamps: true } // ✅ adds createdAt and updatedAt automatically
 );
 // ✅ Ensure username always exists before saving

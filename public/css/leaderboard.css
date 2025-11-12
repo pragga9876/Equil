@@ -1,0 +1,7 @@
+.leaderboard-section { max-width: 900px; margin: 2rem auto; padding: 1rem; }
+.leaderboard-list { list-style: none; padding:0; margin:0; }
+.leaderboard-item { display:flex; gap:1rem; align-items:center; justify-content:space-between; padding:12px; border-radius:8px; background:#fff; margin-bottom:8px; box-shadow:0 2px 10px rgba(0,0,0,0.04); }
+.leaderboard-item .rank { font-weight:700; color:#16a34a; width:40px; }
+.leaderboard-item .name { flex:1; font-weight:600; }
+.leaderboard-item .co2 { width:140px; text-align:right; color:#333; }
+.leaderboard-item .badges { width:100px; text-align:right; color:#6b7280; }
