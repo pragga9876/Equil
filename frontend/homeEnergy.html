@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Home Energy</title>
+  <link rel="stylesheet" href="homeEnergy.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- Header -->
+    <header class="header">
+      <span class="back-btn">←</span>
+      <h2>Home Energy</h2>
+    </header>
+
+    <!-- Progress indicators -->
+    <div class="progress">
+      <span class="dot"></span>
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+    <!-- Main content -->
+    <main class="content">
+
+      <div class="card">
+        <img src="home energy.png" alt="House" class="hero-image" />
+        <h3>Home Energy Usage</h3>
+        <p>Estimate your home's energy consumption to calculate your carbon footprint.</p>
+      </div>
+
+      <!-- Electricity Usage -->
+      <div class="section">
+        <label>Monthly Electricity Usage (kWh)</label>
+        <div class="usage-row">
+          <input type="range" min="0" max="1000" value="150" id="electricityRange">
+          <span id="electricityValue">150 kWh</span>
+        </div>
+      </div>
+
+      <!-- Household Size -->
+      <div class="section">
+        <label>Household Size</label>
+        <p class="subtext">Number of people living in your household</p>
+        <div class="counter">
+          <button id="decrease">−</button>
+          <span id="householdValue">2</span>
+          <button id="increase">+</button>
+        </div>
+      </div>
+
+      <!-- Energy Source -->
+      <div class="section">
+        <label>Energy Source</label>
+        <select>
+          <option>Select</option>
+          <option>Renewable Energy</option>
+          <option>Mixed Sources</option>
+          <option>Non-Renewable Energy</option>
+        </select>
+      </div>
+
+      <!-- Heating Fuel -->
+      <div class="section">
+        <label>Main Heating Fuel</label>
+        <select>
+          <option>Select</option>
+          <option>Electric</option>
+          <option>Gas</option>
+          <option>Wood</option>
+        </select>
+      </div>
+
+      <h3 class="preview-title">Live Preview</h3>
+
+      <!-- Navigation Buttons -->
+      <div class="buttons">
+        <a href="travel&transportation.html">
+            <button class="prev">Previous</button>
+        </a>
+        <button class="next">Next</button>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    // Back button
+    document.querySelector('.back-btn').addEventListener('click', () => {
+      window.history.back();
+    });
+
+    // Electricity usage slider
+    const electricityRange = document.getElementById('electricityRange');
+    const electricityValue = document.getElementById('electricityValue');
+    electricityRange.addEventListener('input', () => {
+      electricityValue.textContent = electricityRange.value + ' kWh';
+    });
+
+    // Household size counter
+    const decrease = document.getElementById('decrease');
+    const increase = document.getElementById('increase');
+    const householdValue = document.getElementById('householdValue');
+    let count = 2;
+
+    decrease.addEventListener('click', () => {
+      if (count > 1) {
+        count--;
+        householdValue.textContent = count;
+      }
+    });
+
+    increase.addEventListener('click', () => {
+      count++;
+      householdValue.textContent = count;
+    });
+  </script>
+</body>
+</html>
