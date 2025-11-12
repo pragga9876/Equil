@@ -27,14 +27,7 @@
           <p class="stat-text">Joined: <%= currentUser.createdAt ? currentUser.createdAt.toDateString() : "N/A" %></p>
         </div>
 
-        <div class="stat-item">
-          <div class="stat-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2">
-              <path d="M6 9l6 6 6-6"></path>
-            </svg>
-          </div>
-          <p class="stat-text">Badges Earned: <%= currentUser.badges || 0 %></p>
-        </div>
+        
 
         <div class="stat-item">
           <div class="stat-icon">
@@ -56,6 +49,25 @@
         </div>
       </div>
     </div>
+    
+    <!-- Badges Section -->
+<div class="badges-section">
+  <h3>Your Badges</h3>
+  <% if (user.badges && user.badges.length > 0) { %>
+    <div class="badges-grid">
+      <% user.badges.forEach(b => { %>
+        <div class="badge-card">
+          <div class="badge-name"><%= b.name %></div>
+          <div class="badge-desc"><%= b.description %></div>
+          <div class="badge-date"><small>Earned: <%= new Date(b.earnedAt).toLocaleDateString() %></small></div>
+        </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <p>No badges yet — log activities to earn badges!</p>
+  <% } %>
+</div>
+
 
     <!-- Form Section -->
     <div class="form-section">

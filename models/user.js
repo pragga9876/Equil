@@ -1,5 +1,11 @@
 const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
+const badgeSchema = new mongoose.Schema({
+  id: String,           // short id e.g. 'green_beginner'
+  name: String,         // display name
+  description: String,
+  earnedAt: Date
+}, { _id: false });
 
 const userSchema = new mongoose.Schema(
   {
@@ -7,6 +13,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+       default: function () {
+      if (this.email) return this.email.split("@")[0];
+      return "User_" + Math.floor(Math.random() * 10000);
+    }
     },
     email: {
       type: String,
@@ -32,9 +42,19 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    badges: { type: [badgeSchema], default: [] }
   },
   { timestamps: true } // ✅ adds createdAt and updatedAt automatically
 );
+// ✅ Ensure username always exists before saving
+userSchema.pre("save", function (next) {
+  if (!this.username && this.email) {
+    this.username = this.email.split("@")[0];
+  } else if (!this.username) {
+    this.username = "User_" + Math.floor(Math.random() * 10000);
+  }
+  next();
+});
 
 // Passport plugin to handle hashing & authentication
 userSchema.plugin(passportLocalMongoose, { usernameField: "email" });

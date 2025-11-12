@@ -36,8 +36,9 @@ router.post("/register", async (req, res) => {
       return res.redirect("/register");
     }
 
-    const user = new User({ name, email, password });
-    await user.save();
+   const newUser = new User({ username, email });
+  await User.register(newUser, password);
+    await newUser.save();
 
     req.flash("success", "Registration successful. Please log in!");
     res.redirect("/login");
@@ -96,6 +97,7 @@ router.get("/profile", isLoggedIn, async (req, res) => {
       title: "My Profile | Equil",
       user,                    // ✅ this is the key part
       totals,
+      activities,
       currentUser: req.user,
       pageCSS: ["profile"],
       bodyClass: "profile-page",
