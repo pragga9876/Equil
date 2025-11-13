@@ -5,20 +5,22 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Travel and Transportation</title>
-  <link rel="stylesheet" href="travel&transportation.css">
+  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-</head>
+  
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="travel&transportation.css">
+
+  </head>
 
 <body>
   <div class="app-container">
-    <!-- Header -->
     <header class="app-header">
-      <div class="back-arrow">←</div>
+      <a href="startCalculator.html"><div class="back-arrow">←</div></a>
       <h1>Travel and Transportation</h1>
     </header>
 
-    <!-- Progress Dots -->
     <div class="progress-dots">
       <span class="dot active"></span>
       <span class="dot"></span>
@@ -26,9 +28,8 @@
       <span class="dot"></span>
     </div>
 
-    <!-- Main Content -->
     <main class="content">
-      <img src="travel&transportation.png" alt="Travel" class="hero-image">
+      <img src="travel&transportation.png" alt="Travel" class="hero-image" onerror="this.src='https://placehold.co/600x400/22c55e/FFF?text=Travel+Image'">
 
       <h2>Travel & Transportation</h2>
       <p>Understand your carbon footprint from daily commutes and long-distance travel.</p>
@@ -49,7 +50,6 @@
           <option value="diesel">🛢️ Diesel</option>
         </select>
 
-        <!-- ✈ Flights per Year Counter -->
         <div class="flight-section">
           <label>Flights Per Year</label>
           <div class="counter">
@@ -66,7 +66,7 @@
         </div>
       </div>
 
-      <h3 class="live-preview">Live Preview</h3>
+      
 
       <a href="homeEnergy.html">
         <button class="next-btn">Next</button>
@@ -75,31 +75,95 @@
   </div>
 
   <script>
+    // --- 1. GLOBAL THEME LOGIC (from theme.js) ---
+    // This runs immediately on script load to prevent a "flash" of the wrong theme.
+
+    // 1. Get reference to the <html> element
+    const htmlElement = document.documentElement;
+
+    /**
+     * 2. Define the function to set the theme.
+     * This function can be called from any page's specific script.
+     * @param {'light' | 'dark'} theme - The theme to set.
+     */
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        htmlElement.classList.remove('light');
+        htmlElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        htmlElement.classList.remove('dark');
+        htmlElement.classList.add('light');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // 3. Run on page load: Check for a saved theme in localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      // Default to light theme if nothing is saved
+      setTheme('light');
+    }
+
+    // --- 2. PAGE-SPECIFIC LOGIC (from travel.html) ---
+    // This runs after the theme has been set.
+
     // Back arrow functionality
     document.querySelector('.back-arrow').addEventListener('click', () => {
       window.history.back();
     });
 
+    // --- Slider Logic (UPDATED) ---
+    
+    /**
+     * Helper function to update slider value text and CSS variable for the track fill.
+     * This CSS variable is used by WebKit browsers (Chrome, Safari).
+     */
+    function updateSlider(sliderElement, valueElement) {
+      const value = sliderElement.value;
+      const min = sliderElement.min || 0;
+      const max = sliderElement.max || 100;
+      const percent = ((value - min) / (max - min)) * 100;
+      
+      // 1. Update the number text
+      valueElement.textContent = value;
+      
+      // 2. Update the CSS variable for the track background gradient
+      sliderElement.style.setProperty('--value-percent', `${percent}%`);
+    }
+
     // Driving Distance Slider
     const drivingRange = document.getElementById('drivingRange');
     const drivingValue = document.getElementById('drivingValue');
+    
     drivingRange.addEventListener('input', () => {
-      drivingValue.textContent = drivingRange.value;
+      updateSlider(drivingRange, drivingValue);
     });
-
+    
     // Public Transport Slider
     const transportRange = document.getElementById('transportRange');
     const transportValue = document.getElementById('transportValue');
+    
     transportRange.addEventListener('input', () => {
-      transportValue.textContent = transportRange.value;
+      updateSlider(transportRange, transportValue);
+    });
+    
+    // --- Run on page load to set initial slider positions ---
+    // This makes sure the sliders look correct when the page first loads
+    // We wrap it in DOMContentLoaded to ensure elements are ready
+    document.addEventListener('DOMContentLoaded', () => {
+        updateSlider(drivingRange, drivingValue);
+        updateSlider(transportRange, transportValue);
     });
 
-    // Flights Per Year Counter
+    // --- Flights Per Year Counter ---
     const flightCount = document.getElementById("flightCount");
     const plus = document.getElementById("flightPlus");
     const minus = document.getElementById("flightMinus");
 
-    let count = 2;
+    let count = 2; // Default value from your HTML
 
     plus.addEventListener("click", () => {
       count++;

@@ -5,7 +5,7 @@ html, body {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background-color: #F9FAF9;
+  background-color: var(--color-green-100);
   font-family: 'Inter', sans-serif;
 }
 
@@ -69,9 +69,9 @@ html, body {
 /* Button styling */
 .start-btn {
   width: 100%;
-  background-color: #22C55E;
+  background-color:var(--color-primary);
   border: none;
-  color: #000;
+  color: var(--color-background-light);
   font-weight: 600;
   font-size: 1.1rem;
   padding: 1rem;
