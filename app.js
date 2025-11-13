@@ -14,6 +14,7 @@ const expressLayouts = require("express-ejs-layouts");
 const leaderboardRoutes = require("./routes/leaderboard");
 const communityRoutes = require("./routes/community");
 const marketRoutes = require("./routes/market");
+const quizRoutes = require("./routes/quiz");
 
 dotenv.config();
 const app = express();
@@ -48,24 +49,13 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy({ usernameField: "email" }, async (email, password, done) => {
-  try {
-    const user = await User.findOne({ email });
-    if (!user) return done(null, false, { message: "No user found with this email" });
-    if (user.password !== password) return done(null, false, { message: "Incorrect password" });
-    return done(null, user);
-  } catch (err) {
-    return done(err);
-  }
-}));
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-passport.deserializeUser(async (id, done) => {
-  const user = await User.findById(id);
-  done(null, user);
-});
+// Use local strategy
+passport.use(
+  new LocalStrategy({ usernameField: "email" }, User.authenticate())
+);
+// Serialize / deserialize user
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Flash + Global Variables
 app.use((req, res, next) => {
@@ -82,5 +72,6 @@ app.use("/", chatRoutes);
 app.use("/", leaderboardRoutes);
 app.use("/community", communityRoutes);
 app.use("/", marketRoutes);
+app.use("/", quizRoutes);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));

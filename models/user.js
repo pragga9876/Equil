@@ -49,6 +49,7 @@ const userSchema = new mongoose.Schema(
     lastActivityAt: { type: Date, default: null } // last day when user logged an activity
   },
   weeklyCO2Cache: { type: Number, default: 0 },
+  lastQuizAt: { type: Date, default: null },
   createdAt: { type: Date, default: Date.now }
   },
   
