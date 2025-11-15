@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { isLoggedIn } = require("../middleware/auth");
-const calculateCarbon = require("../utils/calculateCarbon");
+const calculateCarbon = require("../utils/calculatecarbon.js");
 const Activity = require("../models/activity");
 const User = require("../models/user");
 const { updateUserStreak } = require("../utils/streak");

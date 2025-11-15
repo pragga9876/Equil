@@ -16,6 +16,8 @@ const communityRoutes = require("./routes/community");
 const marketRoutes = require("./routes/market");
 const quizRoutes = require("./routes/quiz");
 const calculatorRoutes = require("./routes/calculator");
+const qrRoutes = require("./routes/qr");
+const airefyRoutes = require("./routes/airefy");
 
 
 
@@ -77,5 +79,7 @@ app.use("/community", communityRoutes);
 app.use("/", marketRoutes);
 app.use("/", quizRoutes);
 app.use("/", calculatorRoutes);
+app.use("/", qrRoutes);
+app.use("/airefy", airefyRoutes);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));

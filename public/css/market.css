@@ -65,3 +65,6 @@
   .market-container { margin: 40px 16px; }
   .redeem-note { display:none; } /* hide optional note on tiny screens */
 }
+.aj{
+  text-decoration: none;
+}
