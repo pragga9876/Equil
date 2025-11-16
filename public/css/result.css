@@ -938,17 +938,21 @@ html.dark .badge-card.locked .badge-circle {
 }
 
 .chart-container {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
-    position: relative;
+    height: 220px;
+    width: 220px;
+    margin: 0 auto 1rem auto;
 }
 
 #doughnutChart {
     max-width: 240px;
     max-height: 240px;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    display: none; /* Hide the original chart since we're using CSS version */
 }
 
 .chart-center-info {
@@ -960,6 +964,46 @@ html.dark .badge-card.locked .badge-circle {
     pointer-events: none;
     z-index: 10;
 }
+
+/* CSS-only Circular Donut Chart */
+.chart-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: conic-gradient(
+        from 0deg,
+        #EF4444 0deg 108deg,          /* Travel: 30% = 108deg */
+        #F59E0B 108deg 180deg,        /* Energy: 20% = 72deg */
+        #10B981 180deg 270deg,        /* Food: 25% = 90deg */
+        #8B5CF6 270deg 324deg,        /* Waste: 15% = 54deg */
+        #e5e7eb 324deg 360deg         /* Remaining: 10% = 36deg */
+    );
+    mask: radial-gradient(circle at center, transparent 60px, black 61px);
+    -webkit-mask: radial-gradient(circle at center, transparent 60px, black 61px);
+    animation: rotateChartInPlace 2s ease-out 0.3s both;
+    z-index: 1;
+}
+
+/* Enhanced center info styling */
+.chart-center-info {
+    z-index: 15;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Removed duplicate chart-container styling */
 
 .chart-center-value {
     font-size: 1.5rem;
@@ -2249,6 +2293,32 @@ html.dark .badge-card.locked .badge-circle {
         max-width: 1140px;
     }
 }
+
+/* Animation for circular chart */
+@keyframes rotateChart {
+    from {
+        transform: translate(-50%, -50%) rotate(-90deg);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* Animation for chart in place */
+@keyframes rotateChartInPlace {
+    from {
+        transform: translate(-50%, -50%) rotate(-90deg);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* Remove old hover effect */
 
 /* Landscape Orientation Adjustments */
 @media screen and (orientation: landscape) and (max-height: 480px) {
