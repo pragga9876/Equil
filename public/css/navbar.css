@@ -89,6 +89,11 @@ body {
   align-items: center;
   justify-content: center;
 }
+img, svg {
+    vertical-align: middle;
+    width: 80px;
+    filter: saturate(140%);
+}
 
 .hamburger-button:hover {
   background-color: var(--hover-card-bg);
@@ -149,7 +154,7 @@ body {
 .sidebar-title {
   font-size: 20px;
   font-weight: 700;
-  color: var(--color-text-title);
+  color: white;
 }
 
 .sidebar-close-button {

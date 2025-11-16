@@ -1,4 +1,7 @@
 /* market.css */
+body{
+  align-items: flex-start;
+}
 .market-container {
   max-width: 960px;
   margin: 80px auto;
