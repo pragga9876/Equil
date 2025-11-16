@@ -55,7 +55,7 @@ router.post("/calculator/home", isLoggedIn, (req, res) => {
 router.get("/calculator/fooddiet", isLoggedIn, (req, res) => {
   res.render("activities/co2calculator/fooddiet", {
     title: "Food & Diet",
-    pageCSS: ["fooddiet"],
+    pageCSS: ["food"],
   });
 });
 

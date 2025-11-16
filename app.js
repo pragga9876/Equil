@@ -18,17 +18,29 @@ const quizRoutes = require("./routes/quiz");
 const calculatorRoutes = require("./routes/calculator");
 const qrRoutes = require("./routes/qr");
 const airefyRoutes = require("./routes/airefy");
+const MongoStore = require('connect-mongo');
 
 
 
 dotenv.config();
 const app = express();
 
+
+  
+const store = MongoStore.create({
+  mongoUrl: process.env.MONGO_URI,
+  touchAfter: 24 * 60 * 60,
+  crypto: {
+    secret: process.env.SECRET
+  }
+});
+store.on('error', function(e){
+  console.log('SESSION STORE ERROR', e);
+});
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log(" MongoDB Connected"))
   .catch((err) => console.log(" MongoDB Error:", err));
-
 // EJS Setup
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -44,6 +56,7 @@ app.use(express.json());
 
 // Sessions + Flash
 app.use(session({
+  store:store,
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
