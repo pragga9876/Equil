@@ -2,18 +2,7 @@
     use the semantic variables from 'theme.css'.
 */
 
-/* Full-screen layout, no gaps */
-body {
-  margin: 0;
-  padding: 0;
-  /* CHANGE 1: Use min-height for correct background coverage outside the centered app */
-  min-height: 100vh;
-  width: 100%;
-  background-color: var(--color-gray-200, #e5e7eb);
-  font-family: 'Inter', sans-serif;
-  /* Add transition for smooth theme changes */
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+/* Remove conflicting body styles - let boilerplate handle this */
 
 h1 {
   font-size: x-large;
@@ -22,22 +11,18 @@ h1 {
 
 /* App container */
 .app-container {
-  /* CRUCIAL CHANGES FOR PHONE VIEWPORT: */
-  max-width: 450px; /* Caps the content width at a standard mobile size */
-  width: 100%; /* Ensures responsiveness below 450px */
-  margin: 0 auto; /* Centers the container horizontally on wide screens */
-  min-height: 100vh; /* Ensures the container is full height */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: App boundary shadow */
-  /* Replaced original width/height rules: */
-  /* width: 100vw; (Removed) */
-  /* height: 100%; (Removed) */
+  /* Integrate with the main app container from boilerplate */
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  min-height: auto;
+  box-shadow: none;
   
   display: flex;
   flex-direction: column;
-  background-color: var(--color-bg); /* THEMED */
-  /* CHANGE 2: Use overflow-x: hidden on body, and only overflow-y: auto here */
-  /* overflow: hidden; (Removed) */
-  overflow-y: auto;
+  background-color: var(--color-bg, #ffffff);
+  padding: 0 1rem;
+  overflow: visible;
 }
 
 /* ... rest of your existing CSS remains the same ... */
@@ -46,9 +31,9 @@ h1 {
 .app-header {
   display: flex;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 0;
   font-weight: 600;
-  color: var(--color-text-header); /* THEMED */
+  color: var(--color-text-header, #333);
 }
 
 .back-arrow {
@@ -82,10 +67,9 @@ h1 {
 
 /* Main content */
 .content {
-  
-  padding: 0 1.5rem 2rem;
+  padding: 1rem 0 2rem;
   text-align: left;
-  color: var(--color-text-body); /* THEMED */
+  color: var(--color-text-body, #333);
 }
 
 .hero-image {
@@ -305,4 +289,21 @@ select {
 
 .app-header a {
   text-decoration: none;
+}
+
+/* Professional spacing adjustments */
+.progress-dots {
+  margin-bottom: 1.5rem;
+}
+
+.hero-image {
+  margin-bottom: 1.5rem;
+}
+
+.input-section {
+  margin-top: 1rem;
+}
+
+.next-btn {
+  margin-top: 2rem;
 }
