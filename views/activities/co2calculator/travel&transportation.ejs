@@ -73,7 +73,84 @@
 
 <script>
   // Theme + slider + counter script (unchanged)
+  const htmlElement = document.documentElement;
 
+    /**
+     * 2. Define the function to set the theme.
+     * This function can be called from any page's specific script.
+     * @param {'light' | 'dark'} theme - The theme to set.
+     */
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        htmlElement.classList.remove('light');
+        htmlElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        htmlElement.classList.remove('dark');
+        htmlElement.classList.add('light');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // 3. Run on page load: Check for a saved theme in localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      // Default to light theme if nothing is saved
+      setTheme('light');
+    }
+
+    // --- 2. PAGE-SPECIFIC LOGIC (from travel.html) ---
+    // This runs after the theme has been set.
+
+    // Back arrow functionality
+    document.querySelector('.back-arrow').addEventListener('click', () => {
+      window.history.back();
+    });
+
+    // --- Slider Logic (UPDATED) ---
+    
+    /**
+     * Helper function to update slider value text and CSS variable for the track fill.
+     * This CSS variable is used by WebKit browsers (Chrome, Safari).
+     */
+    function updateSlider(sliderElement, valueElement) {
+      const value = sliderElement.value;
+      const min = sliderElement.min || 0;
+      const max = sliderElement.max || 100;
+      const percent = ((value - min) / (max - min)) * 100;
+      
+      // 1. Update the number text
+      valueElement.textContent = value;
+      
+      // 2. Update the CSS variable for the track background gradient
+      sliderElement.style.setProperty('--value-percent', `${percent}%`);
+    }
+
+    // Driving Distance Slider
+    const drivingRange = document.getElementById('drivingRange');
+    const drivingValue = document.getElementById('drivingValue');
+    
+    drivingRange.addEventListener('input', () => {
+      updateSlider(drivingRange, drivingValue);
+    });
+    
+    // Public Transport Slider
+    const transportRange = document.getElementById('transportRange');
+    const transportValue = document.getElementById('transportValue');
+    
+    transportRange.addEventListener('input', () => {
+      updateSlider(transportRange, transportValue);
+    });
+    
+    // --- Run on page load to set initial slider positions ---
+    // This makes sure the sliders look correct when the page first loads
+    // We wrap it in DOMContentLoaded to ensure elements are ready
+    document.addEventListener('DOMContentLoaded', () => {
+        updateSlider(drivingRange, drivingValue);
+        updateSlider(transportRange, transportValue);
+    });
   // Update hidden flights input when user clicks +/−
   const flightCount = document.getElementById("flightCount");
   const flightHidden = document.getElementById("flightHidden");

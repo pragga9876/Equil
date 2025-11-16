@@ -30,7 +30,7 @@
             <div class="card-content">
                 <h3>Your Footprint</h3>
                 <div class="big-number" id="yourFootprintValue"><%= total?.toFixed(1) || 0 %></div>
-                <div class="unit">tons CO₂e/year</div>
+                <div class="unit">kg</div>
             </div>
         </div>
 
@@ -44,7 +44,7 @@
             <div class="card-content">
                 <h3>Global Average</h3>
                 <div class="big-number">4.8</div>
-                <div class="unit">tons CO₂e/year</div>
+                <div class="unit">kg</div>
             </div>
         </div>
 
@@ -78,7 +78,7 @@
                 <canvas id="doughnutChart" width="240" height="240"></canvas>
                 <div class="chart-center-info">
                     <div class="chart-center-value" id="chartCenterValue"><%= total?.toFixed(1) || 0 %></div>
-                    <div class="chart-center-unit">tons CO₂e</div>
+                    <div class="chart-center-unit">kg</div>
                 </div>
             </div>
             <div class="chart-legend" id="chartLegend">
