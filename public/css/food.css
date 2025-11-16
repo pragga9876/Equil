@@ -72,7 +72,7 @@
 .fooddiet-page .input-section {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: -0.25rem;
 }
 
 .fooddiet-page label {
@@ -82,16 +82,28 @@
   margin-bottom: 0.25rem;
 }
 
-/* SELECT BOX - Match Home Energy Style */
+/* SELECT BOX - Match Travel & Transportation Style */
+.fooddiet-page .select-box {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-green-100, #dcfce7);
+  padding: 1rem 1rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  color: var(--color-text-body, #333);
+  font-weight: 500;
+  border: none;
+  position: relative;
+}
+
 .fooddiet-page .select-box select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   background-image: none;
-  background-color: var(--color-green-100, #dcfce7);
+  background-color: var(--color-card-bg, #ffffff);
   border: 1px solid var(--color-card-border, #e5e7eb);
   border-radius: 8px;
-  padding: 18px;
+  padding: 10px;
   font-size: 16px;
   width: 100%;
   color: var(--color-text-body, #333);
