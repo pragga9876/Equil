@@ -19,6 +19,7 @@ const calculatorRoutes = require("./routes/calculator");
 const qrRoutes = require("./routes/qr");
 const airefyRoutes = require("./routes/airefy");
 const MongoStore = require('connect-mongo');
+const ecoTwin = require("./routes/ecotwin");
 
 
 
@@ -94,5 +95,6 @@ app.use("/", quizRoutes);
 app.use("/", calculatorRoutes);
 app.use("/", qrRoutes);
 app.use("/airefy", airefyRoutes);
+app.use("/eco", ecoTwin);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));

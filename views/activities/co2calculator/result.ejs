@@ -58,8 +58,8 @@
             <div class="card-content">
                 <h3>Your Status</h3>
                 <% 
-                  const status = total < 4.8 ? "Low" : total <= 9 ? "Average" : "High";
-                  const detail = total < 4.8 ? "Below Average" : total <= 9 ? "Near Global Average" : "Above Average";  
+                  const status = total < 100? "Low" : total <= 250? "Average" : "High";
+                  const detail = total < 100? "Below Average" : total <= 250? "Near Global Average" : "Above Average";  
                 %>
                 <div class="status-text"><%= status %></div>
                 <div class="status-detail"><%= detail %></div>
@@ -138,6 +138,63 @@
     </div>
 
 </div>
+<div class="card" id="ecoTwinCard">
+  <h3>EcoTwin — Compare With Someone Like You</h3>
 
+  <div id="ecotwinResults">
+    Loading comparison...
+  </div>
+</div>
 <script src="/js/theme.js"></script>
 <script src="/js/result.js"></script>
+
+
+<script>
+async function loadEcoTwin(){
+  try {
+    const r = await fetch("/eco/api/ecotwin");
+    const j = await r.json();
+
+    if(!j.success){
+      document.getElementById("ecotwinResults").textContent = "No data available";
+      return;
+    }
+
+    const you = j.you.toFixed(1);
+    const ageAvg = j.compare.byAge;
+    const stateAvg = j.compare.byState;
+    const lifeAvg = j.compare.byLifestyle;
+
+    document.getElementById("ecotwinResults").innerHTML = `
+      <p><strong>Your weekly CO₂:</strong> ${you} kg</p>
+      <hr>
+      <p><strong>People like you:</strong></p>
+      <ul>
+        <li>Age group (${j.details.ageGroup}): <b>${ageAvg} kg</b></li>
+        <li>State (${j.details.state}): <b>${stateAvg} kg</b></li>
+        <li>Lifestyle (${j.details.lifestyle}): <b>${lifeAvg} kg</b></li>
+      </ul>
+
+      <h4>Summary</h4>
+      <p style="margin-top:6px;">
+        ${generateTwinMessage(you, ageAvg, stateAvg, lifeAvg)}
+      </p>
+    `;
+  } catch (err) {
+    document.getElementById("ecotwinResults").textContent = "Error loading EcoTwin";
+  }
+}
+
+// Small helper for message
+function generateTwinMessage(you, a, s, l){
+  const avg = (a + s + l) / 3;
+  if(you < avg * 0.8) return "🌱 You're doing better than most people like you! Keep it up!";
+  if(you <= avg * 1.2) return "🙂 You're around average. A few small improvements can make you a category leader!";
+  return "🔥 Your CO₂ is higher than your EcoTwin. Try reducing transport or electricity usage.";
+}
+
+document.addEventListener("DOMContentLoaded", loadEcoTwin);
+</script>
+
+
+

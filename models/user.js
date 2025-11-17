@@ -65,6 +65,10 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    age: { type: Number, default: 20 },
+    state: { type: String, default: "West Bengal" },
+    lifestyle: { type: String, default: "student-home" },
+
     badges: { type: [badgeSchema], default: [] },
     points: { type: Number, default: 0 },
     streak: {
