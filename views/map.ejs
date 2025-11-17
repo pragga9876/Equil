@@ -1,8 +1,25 @@
 <% pageCSS = ["map"]; %>
-<div class="main-container">
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
 
-    <!-- Sidebar -->
+ <header class="header">
+    <div class="header-left">
+        <div class="logo">🌱</div>
+        <h1>GREEN LANE</h1>
+    </div>
+
+    <div class="header-right">
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <span id="theme-icon">🌙 Dark</span>
+        </button>
+    </div>
+</header>
+
+<div class="main-container">
     <aside class="sidebar">
+
         <h2 class="section-title">Plan Your Route</h2>
 
         <div class="input-group">
@@ -37,18 +54,13 @@
         </div>
 
         <div class="routes-container" id="routes-container"></div>
+
     </aside>
 
-    <!-- MAP -->
     <div class="map-container">
         <div id="map"></div>
     </div>
-
 </div>
-
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="/js/mapScript.js"></script>
-
-
-
