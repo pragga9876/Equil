@@ -127,6 +127,10 @@ router.post("/profile", isLoggedIn, async (req, res) => {
     res.redirect("/profile");
   }
 });
+router.get("/lca", (req, res) => {
+    res.render("LCA");
+});
+
 
 router.get('/welcome', (req, res) => {
   res.render('welcomeToEquil', {
