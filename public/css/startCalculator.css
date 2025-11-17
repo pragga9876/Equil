@@ -1,31 +1,21 @@
 /* --- UPDATED CSS --- */
 
-/* Full-screen layout - no gaps or scrollbars */
-html, body {
-  margin: 0;
-  padding: 0;
-  /* Use min-height: 100vh for the body */
-  min-height: 100vh;
-  width: 100%;
-  overflow-x: hidden; /* Only hide horizontal scrollbar */
-  background-color: var(--color-gray-200, #e5e7eb);
-  font-family: 'Inter', sans-serif;
-}
+/* Remove conflicting body styles - let boilerplate handle this */
 
-/* App container simulating a real mobile app */
+/* App container integrated with main app layout */
 .app-container {
-  /* CRUCIAL CHANGES FOR PHONE VIEWPORT */
-  max-width: 450px; /* Caps the content width */
-  min-height: 100vh; /* Ensures it takes full viewport height */
-  width: 100%; /* Ensures responsiveness below 450px */
-  margin: 0 auto; /* Centers the container horizontally */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle boundary */
+  /* Integrate with main app layout */
+  max-width: 100%;
+  min-height: auto;
+  width: 100%;
+  margin: 0;
+  box-shadow: none;
   
-  /* Original styles */
   display: flex;
   flex-direction: column;
-  background-color: #F9FAF9; /* The "screen" color */
-  overflow-y: auto;
+  background-color: transparent;
+  overflow: visible;
+  padding: 0 1rem;
 }
 
 /* ... rest of your existing CSS ... */
@@ -35,7 +25,7 @@ html, body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 .close-icon {
@@ -51,15 +41,16 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 1.5rem 2rem;
+  padding: 1rem 0 2rem;
   text-align: center;
-  color: #1F2937;
+  color: var(--color-text-body, #1F2937);
 }
 
 .content h1 {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
+  color: var(--color-text-header, #1F2937);
 }
 
 /* Image styling */
@@ -72,7 +63,7 @@ html, body {
 /* Description text */
 .description {
   font-size: 1rem;
-  color: #374151;
+  color: var(--color-text-muted, #374151);
   line-height: 1.5;
   margin-bottom: 2rem;
 }
@@ -92,6 +83,21 @@ html, body {
 }
 
 .start-btn:hover {
-  opacity: 0.9;
+  filter: brightness(0.95);
+}
+
+/* Professional spacing adjustments */
+.hero-image {
+  margin-bottom: 2rem;
+}
+
+.content {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Close icon styling */
+.close-icon {
+  color: var(--color-text-body, #000);
 }
 

@@ -1,7 +1,11 @@
 /* quiz.css */
+body{
+  display: flex;
+  align-items: flex-start;
+}
 .quiz-container, .quiz-result-container {
   max-width: 820px;
-  margin: 80px auto;
+  margin: 30px auto;
   padding: 22px;
 }
 

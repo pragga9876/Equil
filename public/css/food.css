@@ -1,14 +1,15 @@
-/* Unique wrapper */
+/* Unique wrapper - integrate with main app */
 .fooddiet-page {
   width: 100%;
-  margin: 0 auto;
+  margin: 0;
 }
 
 /* --------------------------------------
    MAIN CONTAINER
 --------------------------------------- */
 .fooddiet-page .app-container {
-  padding: 1rem;
+  padding: 0 1rem;
+  background-color: transparent;
 }
 
 /* HEADER */
@@ -71,7 +72,7 @@
 .fooddiet-page .input-section {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: -0.25rem;
 }
 
 .fooddiet-page label {
@@ -81,22 +82,37 @@
   margin-bottom: 0.25rem;
 }
 
-/* SELECT BOX — GREEN BACKGROUND LIKE FRIEND */
-.fooddiet-page .select-box select {
-  width: 100%;
-  padding: 1rem;
+/* SELECT BOX - Match Travel & Transportation Style */
+.fooddiet-page .select-box {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-green-100, #dcfce7);
+  padding: 1rem 1rem;
   border-radius: 10px;
+  margin-top: 1rem;
+  color: var(--color-text-body, #333);
+  font-weight: 500;
   border: none;
-  background-color: #55a97a;  /* << GREEN TINT */
-  font-size: 1rem;
-  appearance: none;
-  color: var(--color-text-title);
+  position: relative;
+}
 
-  /* Apply green arrow like friend's version */
-  background-image: url("data:image/svg+xml;utf8,<svg fill='green' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M5.23 7.21a.75.75 0 011.06 0L10 10.92l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 010-1.06z'/></svg>");
+.fooddiet-page .select-box select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
+  background-color: var(--color-card-bg, #ffffff);
+  border: 1px solid var(--color-card-border, #e5e7eb);
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  color: var(--color-text-body, #333);
+  font-weight: 500;
+
+  background-image: var(--select-button-svg, url("data:image/svg+xml;utf8,<svg fill='%23666' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M5.23 7.21a.75.75 0 011.06 0L10 10.92l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 010-1.06z'/></svg>"));
   background-repeat: no-repeat;
-  background-size: 1.4rem;
   background-position: right 1rem center;
+  background-size: 1.5rem;
 }
 
 /* -------------------------------
@@ -160,57 +176,32 @@
   display: flex;
   justify-content: space-between;
   margin-top: 2rem;
+  gap: 1rem;
 }
 
 .fooddiet-page .prev-btn,
 .fooddiet-page .next-btn {
-  width: 48%;
-  padding: 0.9rem;
-  font-size: 1rem;
-  font-weight: 600;
+  border: none;
   border-radius: 10px;
-  border: none;
-  cursor: pointer;
-}
-
-
-
-.fooddiet-page .next-btn {
-  background: #22c55e;  /* GREEN */
-  color: white;
-}
-/* ---- SELECT GREEN DESIGN ---- */
-
-.select-box select {
-  width: 100%;
-  padding: 1rem;
-  border-radius: 12px;
-  border: none;
-
-  background-color: #d1f2e3 !important; /* light green */
-  color: #166534 !important;            /* dark green text */
-
+  padding: 0.8rem 1.4rem;
   font-size: 1rem;
   font-weight: 600;
-
-  appearance: none;
-
-  background-image: url("data:image/svg+xml;utf8,<svg fill='%23166534' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M5.23 7.21a.75.75 0 011.06 0L10 10.92l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 010-1.06z'/></svg>");
-  background-size: 1.3rem;
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
+  cursor: pointer;
+  flex: 1;
+  margin: 0 0.5rem;
 }
-/* ---- FULL GREEN PREVIOUS BUTTON ---- */
 
 .fooddiet-page .prev-btn {
-  background: #22c55e !important; /* bright green */
-  color: white !important;
-  border-radius: 12px;
-  font-weight: 700;
-  padding: 0.9rem 1.4rem;
-  border: none;
-  width: 48%;
+  background-color: var(--color-slate-300, #cbd5e1);
+  color: var(--color-slate-50, #f8fafc);
 }
+
+.fooddiet-page .next-btn {
+  background-color: var(--color-primary, #22c55e);
+  color: var(--color-background-light, #ffffff);
+}
+/* Remove duplicate select styling - using the one above */
+/* Remove conflicting button style - using the correct one above */
 .fooddiet-page .input-section label {
   font-weight: 500;
   display: block;
@@ -221,42 +212,11 @@
 .fooddiet-page .select-box {
   position: relative;
   margin-bottom: 18px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.fooddiet-page .select-box:active {
-  transform: scale(0.97);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.fooddiet-page .select-box select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  background: #EAF6E6;
-  font-size: 15px;
-  color: #333;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-.fooddiet-page .select-box select:hover {
-  background: #def3dc;
-}
+/* Remove this duplicate - using the main select style above */
 
-/* Custom green arrow */
-.fooddiet-page .select-box::after {
-  content: "⌄";
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #56C662;
-  font-size: 18px;
-  pointer-events: none;
-}
+/* Remove custom arrow - using the standard dropdown arrow from main select style */
 /* input section */
 .fooddiet-page .input-section label {
   font-weight: 500;
@@ -265,42 +225,30 @@
   color: #222;
 }
 
- .fooddiet-page .select-box {
-  position: relative;
-  margin-bottom: 18px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.fooddiet-page .select-box:active {
-  transform: scale(0.97);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+/* Remove duplicate select styling - using the correct one above */
+
+/* ================================================
+   PROFESSIONAL SPACING AND INTEGRATION FIXES
+   ================================================ */
+.fooddiet-page .progress-dots {
+  margin-bottom: 1.5rem;
 }
 
-.fooddiet-page .select-box select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  background: #EAF6E6;
-  font-size: 15px;
-  color: #333;
+.fooddiet-page .hero-image {
+  margin-bottom: 1.5rem;
+}
+
+.fooddiet-page .input-section {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.fooddiet-page .button-group {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.fooddiet-page .slider-group input[type="range"] {
+  height: 30px !important;
   cursor: pointer;
-  transition: background 0.2s ease;
-}
-.fooddiet-page .select-box select:hover {
-  background: #def3dc;
-}
-
-/* Custom green arrow */
-.fooddiet-page .select-box::after {
-  content: "⌄";
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #56C662;
-  font-size: 18px;
-  pointer-events: none;
 }

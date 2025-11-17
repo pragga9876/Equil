@@ -82,9 +82,29 @@
     window.history.back();
   });
 
+  // Fixed slider functionality with CSS variable update
   const localRange = document.getElementById("localRange");
   const localValue = document.getElementById("localValue");
+  
+  function updateSlider(sliderElement, valueElement) {
+    const value = sliderElement.value;
+    const min = sliderElement.min || 0;
+    const max = sliderElement.max || 100;
+    const percent = ((value - min) / (max - min)) * 100;
+    
+    // Update the text value
+    valueElement.textContent = value + "%";
+    
+    // Update the CSS variable for the track background gradient
+    sliderElement.style.setProperty('--value-percent', `${percent}%`);
+  }
+  
   localRange.addEventListener("input", () => {
-    localValue.textContent = localRange.value + "%";
+    updateSlider(localRange, localValue);
+  });
+  
+  // Initialize slider on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    updateSlider(localRange, localValue);
   });
 </script>

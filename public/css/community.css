@@ -2,6 +2,7 @@
 body {
   background-color: #f9fafb;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  align-items: flex-start;
 }
 
 /* Centered container */
