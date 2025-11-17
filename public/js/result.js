@@ -110,8 +110,8 @@ function calculatePercentages(data, total) {
 }
 
 function determineStatus(total) {
-    if (total <= 4.8) return { status: 'low', text: 'Low', detail: 'Below Average' };
-    if (total <= 9) return { status: 'average', text: 'Average', detail: 'Near Global Average' };
+    if (total < 50) return { status: 'low', text: 'Low', detail: 'Below Average' };
+    if (total <= 90) return { status: 'average', text: 'Average', detail: 'Near Global Average' };
     return { status: 'high', text: 'High', detail: 'Above Average' };
 }
 

@@ -2399,6 +2399,106 @@ html.dark .badge-card.locked .badge-circle {
     }
 }
 
+/* EcoTwin Card Styling */
+#ecoTwinCard {
+    background: linear-gradient(135deg, var(--white) 0%, rgba(255, 255, 255, 0.95) 100%);
+    border-radius: 24px;
+    padding: 2rem 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.1),
+        0 0 30px rgba(34, 197, 94, 0.12),
+        0 0 60px rgba(34, 197, 94, 0.06);
+    border: 1px solid rgba(34, 197, 94, 0.15);
+    animation: slideUp 0.8s ease-out 0.9s both, subtleEcoTwinGlow 5.5s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#ecoTwinCard:hover {
+    transform: translateY(-8px);
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.15),
+        0 0 40px rgba(34, 197, 94, 0.2),
+        0 0 80px rgba(34, 197, 94, 0.1);
+}
+
+#ecoTwinCard h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+#ecoTwinCard p {
+    margin: 0.5rem 0;
+    color: var(--neutral-700);
+    line-height: 1.6;
+}
+
+#ecoTwinCard strong {
+    color: var(--neutral-900);
+    font-weight: 600;
+}
+
+#ecoTwinCard ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+#ecoTwinCard li {
+    margin: 0.5rem 0;
+    color: var(--neutral-700);
+}
+
+#ecoTwinCard hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.3), transparent);
+    margin: 1rem 0;
+}
+
+/* Dark mode styles for EcoTwin card */
+html.dark #ecoTwinCard {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-card-border);
+}
+
+html.dark #ecoTwinCard h3 {
+    color: var(--color-text-header);
+}
+
+html.dark #ecoTwinCard p,
+html.dark #ecoTwinCard li {
+    color: var(--color-text-body);
+}
+
+html.dark #ecoTwinCard strong {
+    color: var(--color-text-header);
+}
+
+/* EcoTwin glow animation */
+@keyframes subtleEcoTwinGlow {
+    0%, 100% {
+        box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.1),
+            0 0 30px rgba(34, 197, 94, 0.12),
+            0 0 60px rgba(34, 197, 94, 0.06);
+    }
+    50% {
+        box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.1),
+            0 0 35px rgba(34, 197, 94, 0.18),
+            0 0 70px rgba(34, 197, 94, 0.09);
+    }
+}
+
 /* Category specific colors */
 .travel {
     --color: #EF4444;

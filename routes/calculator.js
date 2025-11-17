@@ -7,11 +7,15 @@ const User = require("../models/user");
 const { updateUserStreak } = require("../utils/streak");
 const { generateBadges } = require("../utils/badges");
 const { generateInsights } = require("../utils/insights");
-const GLOBAL_AVERAGE = 350;
+const GLOBAL_AVERAGE = 70; // kg CO2/week (calculated from ecotwin averages)
 // ---------------------------
 // STEP 0 → Start Calculator
 // ---------------------------
 router.get("/calculator/start", isLoggedIn, (req, res) => {
+  // Clear any existing calculator session data to ensure fresh calculation
+  delete req.session.calc;
+  delete req.session.calcResult;
+  
   res.render("activities/co2calculator/startCalculator", {
     title: "Start Carbon Calculator",
     pageCSS: ["startCalculator"],
@@ -155,10 +159,18 @@ router.get("/calculator/result", isLoggedIn, async (req, res) => {
           lastCalcDate.getMonth() === today.getMonth() &&
           lastCalcDate.getFullYear() === today.getFullYear()
         ) {
-          total = user.lastCalculation.total;
-          breakdown = user.lastCalculation.breakdown;
+          // Recalculate using current logic to ensure updated values
+          const lastCalcData = user.lastCalculation.details || user.lastCalculation;
+          if (lastCalcData) {
+            const recalculatedResult = calculateCarbon(lastCalcData);
+            total = recalculatedResult.total;
+            breakdown = recalculatedResult.breakdown;
+          } else {
+            total = user.lastCalculation.total;
+            breakdown = user.lastCalculation.breakdown;
+          }
           streak = user.streak;
-          insights = generateInsights(user.lastCalculation);
+          insights = generateInsights({ total, breakdown });
           badges = await generateBadges(user, Activity);
         }
       }
@@ -184,5 +196,15 @@ router.get("/calculator/result", isLoggedIn, async (req, res) => {
   }
 });
 
+
+// ---------------------------
+// Clear Session (for testing/debugging)
+// ---------------------------
+router.get("/calculator/clear", isLoggedIn, (req, res) => {
+  delete req.session.calc;
+  delete req.session.calcResult;
+  req.flash("success", "Calculator session cleared. Please start a new calculation.");
+  res.redirect("/calculator/start");
+});
 
 module.exports = router;

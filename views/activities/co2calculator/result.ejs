@@ -30,7 +30,7 @@
             <div class="card-content">
                 <h3>Your Footprint</h3>
                 <div class="big-number" id="yourFootprintValue"><%= total?.toFixed(1) || 0 %></div>
-                <div class="unit">kg</div>
+                <div class="unit">kg/week</div>
             </div>
         </div>
 
@@ -43,13 +43,18 @@
             </div>
             <div class="card-content">
                 <h3>Global Average</h3>
-                <div class="big-number">4.8</div>
-                <div class="unit">kg</div>
+                <div class="big-number"><%= globalAverage %></div>
+                <div class="unit">kg/week</div>
             </div>
         </div>
 
         <!-- Comparison Status Card -->
-        <div class="summary-card comparison-result" id="comparisonCard">
+        <% 
+          const status = total < 50? "Low" : total <= 90? "Average" : "High";
+          const detail = total < 50? "Below Average" : total <= 90? "Near Global Average" : "Above Average";
+          const statusClass = status.toLowerCase(); // 'low', 'average', or 'high'
+        %>
+        <div class="summary-card comparison-result <%= statusClass %>" id="comparisonCard">
             <div class="card-icon">
                <svg class="bounce-icon" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z"/>
@@ -57,10 +62,6 @@
             </div>
             <div class="card-content">
                 <h3>Your Status</h3>
-                <% 
-                  const status = total < 100? "Low" : total <= 250? "Average" : "High";
-                  const detail = total < 100? "Below Average" : total <= 250? "Near Global Average" : "Above Average";  
-                %>
                 <div class="status-text"><%= status %></div>
                 <div class="status-detail"><%= detail %></div>
             </div>
@@ -78,7 +79,7 @@
                 <canvas id="doughnutChart" width="240" height="240"></canvas>
                 <div class="chart-center-info">
                     <div class="chart-center-value" id="chartCenterValue"><%= total?.toFixed(1) || 0 %></div>
-                    <div class="chart-center-unit">kg</div>
+                    <div class="chart-center-unit">kg/week</div>
                 </div>
             </div>
             <div class="chart-legend" id="chartLegend">
@@ -86,10 +87,11 @@
         </div>
     <!-- CATEGORY GRID -->
     <div class="category-grid">
-        <% for (let cat of ['travel','energy','food','waste']) { 
-            const val = breakdown?.[cat] ?? 0; %>
+        <% for (let cat of ['travel','home','food','waste']) { 
+            const val = breakdown?.[cat] ?? 0; 
+            const displayName = cat === 'home' ? 'Energy' : cat.charAt(0).toUpperCase() + cat.slice(1); %>
         <div class="category-card <%= cat %>">
-            <div class="category-name"><%= cat.charAt(0).toUpperCase() + cat.slice(1) %></div>
+            <div class="category-name"><%= displayName %></div>
             <div class="category-value"><%= val.toFixed(1) %></div>
             <div class="category-percentage"><%= total ? ((val/total)*100).toFixed(0) : 0 %>%</div>
             <div class="progress-bar">
