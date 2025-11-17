@@ -1,67 +1,66 @@
 module.exports = function calculateCarbon(data) {
 
-  // -----------------------------
-  // 1. TRAVEL & TRANSPORTATION
-  // -----------------------------
-  const travelData = data.travel || {};
+  // ==========================
+  // 1. TRAVEL
+  // ==========================
+  const t = data.travel || {};
 
   const travel =
-    (parseFloat(travelData.carKm) || 0) * 0.21 +
-    (parseFloat(travelData.bikeKm) || 0) * 0.05 +
-    (parseFloat(travelData.busKm) || 0) * 0.05 +
-    (parseFloat(travelData.trainKm) || 0) * 0.04 +
-    (parseFloat(travelData.flightHours) || 0) * 90;
+    (parseFloat(t.carKm) || 0) * 0.21 +         // car (OK)
+    (parseFloat(t.bikeKm) || 0) * 0.0 +         // bike = 0
+    (parseFloat(t.busKm) || 0) * 0.05 +         // bus
+    (parseFloat(t.trainKm) || 0) * 0.04 +       // train
+    (parseFloat(t.flightHours) || 0) * 25;      // FIXED (25 kg/hour)
 
 
-  // -----------------------------
+  // ==========================
   // 2. HOME ENERGY
-  // -----------------------------
-  const homeData = data.home || {};
+  // ==========================
+  const h = data.home || {};
 
   const home =
-    (parseFloat(homeData.electricityKwh) || 0) * 0.82 +
-    (parseFloat(homeData.lpgCylinders) || 0) * 44 +
-    (parseFloat(homeData.waterUsage) || 0) * 0.003;
+    (parseFloat(h.electricityKwh) || 0) * 0.82 +   // India avg
+    (parseFloat(h.lpgCylinders) || 0) * 12.7 +     // FIXED LPG factor
+    (parseFloat(h.waterUsage) || 0) * 0.0003;      // FIXED smaller factor
 
 
-  // -----------------------------
+  // ==========================
   // 3. FOOD & DIET
-  // -----------------------------
-  const foodData = data.fooddiet || {};
+  // ==========================
+  const f = data.fooddiet || {};
 
   const dietFactors = {
-    omnivore: 3.3,
+    omnivore: 2.5,     // lower & realistic
     vegetarian: 1.7,
     vegan: 1.5,
   };
 
+  // Meat impact (monthly realistic values)
   const meatScore =
-    foodData.meatConsumption === "daily"
-      ? 50
-      : foodData.meatConsumption === "weekly"
-        ? 20
-        : 5;
+    f.meatConsumption === "daily" ? 15 :
+    f.meatConsumption === "weekly" ? 5 :
+    1;
 
   const food =
-    (dietFactors[foodData.dietType] || 2.5) * 30 +
+    (dietFactors[f.dietType] || 2.3) * 20 +    // was ×30 → too big
     meatScore -
-    ((parseFloat(foodData.localFoodPercentage) || 0) / 10);
+    ((parseFloat(f.localFoodPercentage) || 0) * 0.1); // smoother reduction
 
 
-  // -----------------------------
-  // 4. WASTE & RECYCLING
-  // -----------------------------
-  const wasteData = data.waste || {};
+  // ==========================
+  // 4. WASTE
+  // ==========================
+  const w = data.waste || {};
 
   const waste =
-    (parseFloat(wasteData.weeklyWasteKg) || 0) * 4 +
-    (wasteData.recycle === "on" || wasteData.recycle === true ? -10 : 0) +
-    (wasteData.compost === "on" || wasteData.compost === true ? -15 : 0);
+    (parseFloat(w.weeklyWasteKg) || 0) * 2 +      // FIXED smaller factor
+    (w.recycle ? -5 : 0) +                        // was -10 (too big)
+    (w.compost ? -7 : 0);                         // was -15 (too big)
 
 
-  // -----------------------------
-  // FINAL TOTAL
-  // -----------------------------
+  // ==========================
+  // 5. TOTAL
+  // ==========================
   const total = travel + home + food + waste;
 
   return {

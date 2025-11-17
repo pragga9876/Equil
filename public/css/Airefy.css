@@ -1,9 +1,13 @@
 /* -------------------- Theme & Reset -------------------- */
 body, .container {
     max-width: 100% !important;
-    padding: 0 !important;
+    padding-top: 110px !important;
     margin: 0 !important;
 }
+.airefy-page-wrapper {
+    padding-top: 110px;   /* Adjust based on your navbar height */
+}
+
 .container {
     width: 100% !important;
 }

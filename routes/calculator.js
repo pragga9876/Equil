@@ -7,7 +7,7 @@ const User = require("../models/user");
 const { updateUserStreak } = require("../utils/streak");
 const { generateBadges } = require("../utils/badges");
 const { generateInsights } = require("../utils/insights");
-
+const GLOBAL_AVERAGE = 350;
 // ---------------------------
 // STEP 0 → Start Calculator
 // ---------------------------
@@ -174,6 +174,7 @@ router.get("/calculator/result", isLoggedIn, async (req, res) => {
       badges,
       insights,
       streak,
+      globalAverage: GLOBAL_AVERAGE,
       pageCSS: ["result"],
     });
 
