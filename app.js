@@ -22,8 +22,7 @@ const MongoStore = require('connect-mongo');
 const ecoTwin = require("./routes/ecotwin");
 const mapRoutes = require("./routes/map");
 const receiptRouter = require('./routes/receipt');
-const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+
 
 
 dotenv.config();
@@ -100,6 +99,7 @@ app.use("/", qrRoutes);
 app.use("/airefy", airefyRoutes);
 app.use("/eco", ecoTwin);
 app.use("/map", mapRoutes);
-app.use('/api/receipt', receiptRouter);
+app.get("/api/receipt",receiptRouter);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));

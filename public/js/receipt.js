@@ -1,54 +1,50 @@
-// public/receipt.js
-const inp = document.getElementById('receiptInput');
-const btn = document.getElementById('uploadBtn');
-const preview = document.getElementById('preview');
-const resultBox = document.getElementById('resultBox');
+console.log("Receipt JS Loaded");
 
-inp.addEventListener('change', () => {
-  if (!inp.files || !inp.files[0]) return;
-  const url = URL.createObjectURL(inp.files[0]);
-  preview.src = url;
-  preview.style.display = 'block';
-});
+// Show image preview
+function handleFileSelect(event) {
+    const file = event.target.files[0];
+    if (!file) return;
 
-btn.addEventListener('click', async () => {
-  if (!inp.files || !inp.files[0]) return alert('Please select a receipt image first');
+    const preview = document.getElementById("preview");
+    preview.src = URL.createObjectURL(file);
 
-  const fd = new FormData();
-  fd.append('receipt', inp.files[0]);
+    document.getElementById("previewSection").classList.remove("hidden");
+}
 
-  resultBox.textContent = 'Uploading and processing...';
+// Send to backend
+async function processReceipt() {
+    const file = document.getElementById("fileInput").files[0];
+    if (!file) return alert("Please upload a receipt first!");
 
-  try {
-    const res = await fetch('/api/receipt/parse', { method: 'POST', body: fd });
-    const json = await res.json();
-    if (!json.success) {
-      resultBox.textContent = 'Error: ' + (json.error || 'Unknown error');
-      return;
+    document.getElementById("loadingSection").classList.remove("hidden");
+
+    const formData = new FormData();
+    formData.append("receipt", file);
+
+    try {
+        const res = await fetch("/api/receipt/parse", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await res.json();
+
+        document.getElementById("loadingSection").classList.add("hidden");
+
+        if (!data.success) {
+            return alert("Parsing error: " + data.msg);
+        }
+
+        document.getElementById("resultsSection").classList.remove("hidden");
+        document.getElementById("results").innerHTML =
+            "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+
+    } catch (err) {
+        console.log(err);
+        alert("Upload failed");
     }
+}
 
-    // Pretty show
-    const cp = json.data.carbon_footprint;
-    let out = `Total CO2e: ${cp.total_co2_kg} kg (${cp.total_co2_lbs} lbs)\n`;
-    out += `Items recognized: ${cp.items_matched}/${cp.total_items}\n\n`;
-
-    if (cp.breakdown && cp.breakdown.length) {
-      out += 'Breakdown:\n';
-      cp.breakdown.forEach(it => {
-        out += ` - ${it.item} ×${it.quantity} → ${it.total_co2_kg} kg (source: ${it.source})\n`;
-      });
-      out += '\n';
-    }
-
-    if (cp.not_found_list && cp.not_found_list.length) {
-      out += 'Not recognized: ' + cp.not_found_list.join(', ') + '\n\n';
-    }
-
-    out += 'Raw items found:\n' + JSON.stringify(json.data.items_found, null, 2) + '\n\n';
-    out += 'Extracted text preview:\n' + json.data.extracted_text_preview;
-
-    resultBox.textContent = out;
-  } catch (err) {
-    resultBox.textContent = 'Error: ' + err.message;
-  }
-});
+function resetApp() {
+    location.reload();
+}

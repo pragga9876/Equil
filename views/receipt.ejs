@@ -1,19 +1,39 @@
-
-
-    <% pageCSS = ["receipt"]; %>
+<% pageCSS = ["receipt"]; %>
 
     <div class="container">
-        <h1> Receipt Parser </h1>
+        <header>
+            <h1>📄 Receipt Parser</h1>
+            <p>Upload your receipt to extract data</p>
+        </header>
 
-        <input type="file" id="receiptInput" accept="image/*" />
-        <button id="uploadBtn">Upload & Parse</button>
+        <!-- Upload Section -->
+        <div class="upload-section">
+            <button class="btn" onclick="document.getElementById('fileInput').click()">
+                📁 Upload Receipt
+            </button>
 
-        <div>
-            <img id="preview" />
+            <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFileSelect(event)">
         </div>
 
-        <div id="resultBox"></div>
+        <!-- Preview -->
+        <div id="previewSection" class="hidden">
+            <h3>Preview</h3>
+            <img id="preview" />
+            <button class="btn" onclick="processReceipt()">Process Receipt</button>
+        </div>
+
+        <!-- Loading -->
+        <div id="loadingSection" class="hidden">
+            <div class="loader"></div>
+            <p>Processing your receipt...</p>
+        </div>
+
+        <!-- Results -->
+        <div id="resultsSection" class="hidden">
+            <h3>Extracted Data</h3>
+            <div id="results"></div>
+            <button class="btn" onclick="resetApp()">Parse Another Receipt</button>
+        </div>
     </div>
 
-    <script src="/receipt.js"></script>
-
+    <script src="/js/receipt.js"></script>
