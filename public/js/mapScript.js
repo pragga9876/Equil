@@ -492,4 +492,55 @@ window.addEventListener('orientationchange', function() {
     }, 300);
 });
 
+// Use current location
+function useCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                document.getElementById('from-input').value = `Current Location (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
+            },
+            function() {
+                alert('Unable to get your location');
+            }
+        );
+    } else {
+        alert('Geolocation not supported');
+    }
+}
+
+// Show popular places
+function showPopularPlaces() {
+    const places = document.getElementById('popular-places');
+    if (places.style.display === 'none') {
+        places.style.display = 'grid';
+    } else {
+        places.style.display = 'none';
+    }
+}
+
+// Fill destination
+function fillDestination(place) {
+    document.getElementById('to-input').value = place;
+    document.getElementById('popular-places').style.display = 'none';
+}
+
+// Simple event listeners for new inputs
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('from-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            document.getElementById('to-input').focus();
+        }
+    });
+
+    document.getElementById('to-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            planRoute();
+        }
+    });
+});
+
 console.log('Script loaded successfully');

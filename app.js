@@ -21,6 +21,7 @@ const airefyRoutes = require("./routes/airefy");
 const MongoStore = require('connect-mongo');
 const ecoTwin = require("./routes/ecotwin");
 const mapRoutes = require("./routes/map");
+const receiptRouter = require('./routes/receipt');
 
 
 
@@ -98,5 +99,7 @@ app.use("/", qrRoutes);
 app.use("/airefy", airefyRoutes);
 app.use("/eco", ecoTwin);
 app.use("/map", mapRoutes);
+app.get("/api/receipt",receiptRouter);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));

@@ -174,6 +174,14 @@ router.get('/help', (req, res) => {
     currentUser: req.user
   });
 });
+
+router.get('/faq', (req, res) => {
+  res.render('faq', {
+    title: 'Frequently Asked Questions | Equil',
+    pageCSS: ['faq'],
+    currentUser: req.user
+  });
+});
 // Temporary route to add dummy transactions (for testing)
 
 

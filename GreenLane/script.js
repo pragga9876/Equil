@@ -5,6 +5,8 @@ let currentFromCoords = null;
 let currentToCoords = null;
 let currentFromAddress = '';
 let currentToAddress = '';
+let searchTimeout = null;
+let currentHighlightedIndex = -1;
 
 // Initialize Leaflet map
 function initMap() {
@@ -28,6 +30,20 @@ function initMap() {
         setTimeout(function() {
             map.invalidateSize();
         }, 300);
+
+        // Handle window resize events
+        window.addEventListener('resize', function() {
+            setTimeout(function() {
+                map.invalidateSize();
+            }, 100);
+        });
+
+        // Handle orientation change on mobile
+        window.addEventListener('orientationchange', function() {
+            setTimeout(function() {
+                map.invalidateSize();
+            }, 500);
+        });
 
         console.log('Map initialized successfully');
     } catch (error) {
@@ -86,6 +102,33 @@ function calculateEcoScore(mode, distanceKm) {
 function calculateCO2(mode, distanceKm) {
     const factor = emissionFactors[mode] || 0;
     return Math.round(factor * distanceKm);
+}
+
+// Search for place suggestions
+async function searchPlaces(query, limit = 5) {
+    try {
+        const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=${limit}&timeout=5`;
+        
+        const response = await fetch(url, {
+            headers: { 'User-Agent': 'VerdiGo/1.0' },
+            signal: AbortSignal.timeout(10000)
+        });
+
+        if (!response.ok) {
+            return [];
+        }
+
+        const data = await response.json();
+        return data.map(item => ({
+            lat: parseFloat(item.lat),
+            lon: parseFloat(item.lon),
+            name: item.display_name,
+            shortName: item.name || item.display_name.split(',')[0]
+        }));
+    } catch (error) {
+        console.error('Search error:', error);
+        return [];
+    }
 }
 
 // Geocode address with mobile optimization
@@ -417,12 +460,48 @@ function updateRoute() {
     }
 }
 
+
+// Use current location
+function useCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                document.getElementById('from-input').value = `Current Location (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
+            },
+            function() {
+                alert('Unable to get your location');
+            }
+        );
+    } else {
+        alert('Geolocation not supported');
+    }
+}
+
+// Show popular places
+function showPopularPlaces() {
+    const places = document.getElementById('popular-places');
+    if (places.style.display === 'none') {
+        places.style.display = 'grid';
+    } else {
+        places.style.display = 'none';
+    }
+}
+
+// Fill destination
+function fillDestination(place) {
+    document.getElementById('to-input').value = place;
+    document.getElementById('popular-places').style.display = 'none';
+}
+
 // Chat
 function openChat() {
     alert('Chat feature coming soon!');
 }
 
-// Event listeners
+
+// Simple event listeners for new inputs
 document.getElementById('from-input').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         e.preventDefault();

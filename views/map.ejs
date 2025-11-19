@@ -4,7 +4,7 @@
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 />
 
- <header class="header">
+<header class="header">
     <div class="header-left">
         <div class="logo">🌱</div>
         <h1>GREEN LANE</h1>
@@ -19,24 +19,35 @@
 
 <div class="main-container">
     <aside class="sidebar">
-
-        <h2 class="section-title">Plan Your Route</h2>
-
-        <div class="input-group">
-            <div class="input-wrapper">
-                <span class="input-icon">📍</span>
-                <input type="text" id="from-input" class="input-field" placeholder="From where?">
+        <div class="location-input-container">
+            <h2 class="input-header">🗺️ PLAN YOUR ROUTE</h2>
+            
+            <div class="location-box">
+                <h3 class="location-title">📍 FROM</h3>
+                <input type="text" id="from-input" class="location-input" placeholder="Enter starting location">
+            </div>
+            
+            <div class="location-box">
+                <h3 class="location-title">🎯 TO</h3>
+                <input type="text" id="to-input" class="location-input" placeholder="Enter destination">
             </div>
         </div>
 
-        <div class="input-group">
-            <div class="input-wrapper">
-                <span class="input-icon">🎯</span>
-                <input type="text" id="to-input" class="input-field" placeholder="To where?">
+        <button class="plan-button" onclick="planRoute()">🚀 FIND BEST ROUTES</button>
+        
+        <div class="quick-suggestions">
+            <h3 class="suggestions-title">✨ Quick Fill</h3>
+            <div class="suggestion-buttons">
+                <button class="suggestion-btn" onclick="useCurrentLocation()">📍 My Location</button>
+                <button class="suggestion-btn" onclick="showPopularPlaces()">⭐ Popular Places</button>
+            </div>
+            <div id="popular-places" class="popular-list" style="display: none;">
+                <button class="place-btn" onclick="fillDestination('Victoria Memorial, Kolkata')">🏛️ Victoria Memorial</button>
+                <button class="place-btn" onclick="fillDestination('Howrah Bridge, Kolkata')">🌉 Howrah Bridge</button>
+                <button class="place-btn" onclick="fillDestination('Park Street, Kolkata')">🍽️ Park Street</button>
+                <button class="place-btn" onclick="fillDestination('New Market, Kolkata')">🛍️ New Market</button>
             </div>
         </div>
-
-        <button class="plan-button" onclick="planRoute()">Plan Route</button>
 
         <div class="loading" id="loading">
             <div class="spinner"></div>
@@ -54,7 +65,6 @@
         </div>
 
         <div class="routes-container" id="routes-container"></div>
-
     </aside>
 
     <div class="map-container">

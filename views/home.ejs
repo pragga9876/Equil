@@ -19,7 +19,7 @@
         <h5 class="hero-subtitle">You're taking the first step towards a greener lifestyle. Log your first activity to begin.</h5>
 
         <% if (!currentUser) { %>
-          <a href="/welcome" class="button-primary aj">Start Your Journey</a>
+          <a href="/welcome" class="button-primary aj">Start Yo`ur Journey</a>
         <% } else { %>
           <a href="/calculator/result" class="button-primary aj">Go to insights</a>
         <% } %>
@@ -31,7 +31,7 @@
       <h3 class="section-title">Discover Tools</h3>
       <div class="tools-grid">
         <div class="tool-card"><a href="/airefy" class=" aj"><span class="material-icons-outlined icon-blue">air</span><span class="tool-name">Airefy</span></a></div>
-        <div class="tool-card"><a href="/lca" class="aj"><span class="material-icons-outlined icon-green">delete_outline</span><span class="tool-name">WasteLess</span></a></div>
+        <div class="tool-card"><a href="/lca" class="aj"><span class="material-icons-outlined icon-green">delete_outline</span><span class="tool-name">LCA</span></a></div>
         <div class="tool-card"><span class="material-icons-outlined icon-orange">shopping_basket</span><span class="tool-name">Local Harvest</span></div>
         <div class="tool-card"><span class="material-icons-outlined icon-indigo">directions_car</span><span class="tool-name">Green Lane</span></div>
       </div>
@@ -92,15 +92,22 @@
             <div class="timeline-item">
               <div class="timeline-number" style="--number-bg: #3b82f6;">5</div>
               <div class="timeline-card">
-                <span class="material-icons-outlined" style="color: #3b82f6;">place</span>
-                <span class="timeline-text">Discover Eco Hubs Nearby</span>
+                <span class="material-icons-outlined" style="color: #3b82f6;">groups</span>
+                <span class="timeline-text">Discover Eco Communities</span>
               </div>
             </div>
             <div class="timeline-item timeline-item-right">
-              <div class="timeline-number" style="--number-bg: #3b82f6;">6</div>
+              <div class="timeline-number" style="--number-bg: #8b5cf6;">6</div>
               <div class="timeline-card timeline-card-right">
-                <span class="timeline-text">Achievements & Motivation</span>
-                <span class="material-icons-outlined" style="color: #3b82f6;">emoji_events</span>
+                <span class="timeline-text">Get Life cycle Analysis</span>
+                <span class="material-icons-outlined" style="color: #8b5cf6;">recycling</span>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-number" style="--number-bg: #06b6d4;">7</div>
+              <div class="timeline-card">
+                <span class="material-icons-outlined" style="color: #06b6d4;">air</span>
+                <span class="timeline-text">Get AQI of your Location</span>
               </div>
             </div>
           </div>
@@ -113,7 +120,7 @@
       <h3 class="section-title">Frequently Asked Questions</h3>
       <div class="faq-card">
         <p class="faq-question">How does Equil help me live more sustainably?</p>
-        <a class="faq-link" href="#">View all FAQs</a>
+        <a class="faq-link" href="/faq">View all FAQs</a>
       </div>
     </section>
   </main>
